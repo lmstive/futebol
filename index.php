@@ -13,11 +13,9 @@ $isAdmin = isset($_SESSION['admin']);
         .player-paid { color: green; font-weight: bold; }
         .player-pending { color: red; }
         .login-form { max-width: 300px; }
-        .admin-only { display: none; }
-        .logged-in .admin-only { display: inline-block; }
     </style>
 </head>
-<body class="<?php echo $isAdmin ? 'logged-in' : ''; ?>">
+<body>
     <header class="bg-dark text-white py-3">
         <div class="container d-flex justify-content-between align-items-center">
             <h1 class="h3 mb-0">Destreinados Futebol Clube</h1>
@@ -39,7 +37,9 @@ $isAdmin = isset($_SESSION['admin']);
             <p><strong>Local:</strong> <span id="gameLocation">Carregando...</span></p>
             <p><strong>Data:</strong> <span id="gameDate">Carregando...</span></p>
             <p><strong>Horário:</strong> <span id="gameTime">Carregando...</span></p>
-            <button class="btn btn-primary admin-only" data-bs-toggle="modal" data-bs-target="#updateGameModal">Atualizar Jogo</button>
+            <?php if ($isAdmin): ?>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateGameModal">Atualizar Jogo</button>
+            <?php endif; ?>
         </section>
 
         <section class="mb-5">
@@ -84,9 +84,7 @@ $isAdmin = isset($_SESSION['admin']);
                         <li class="list-group-item">23. Luis Azevedo</li>
                         <li class="list-group-item">24. Pedro</li>
                         <li class="list-group-item">25. Tiago</li>
-                        <li class="list-group-item">26. Alan</li>
-                        <li class="list-group-item">27. Convidado</li>
-                        <li class="list-group-item">28. Convidado</li>
+                        <li class="list-group-item">26. Frederico</li>
                     </ul>
                 </div>
             </div>
@@ -107,39 +105,38 @@ $isAdmin = isset($_SESSION['admin']);
                     </tr>
                 </thead>
                 <tbody id="paymentTable">
-                    <tr><td>Luis Miguel</td><td>Sim</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Luis Miguel">Alterar</button></td></tr>
-                    <tr><td>Francisco</td><td>Sim</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Francisco">Alterar</button></td></tr>
-                    <tr><td>Ander</td><td>Sim</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Ander">Alterar</button></td></tr>
-                    <tr><td>Thiago</td><td>Sim</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Thiago">Alterar</button></td></tr>
-                    <tr><td>Eduardo</td><td>Sim</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Eduardo">Alterar</button></td></tr>
-                    <tr><td>Cassio</td><td>Sim</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Cassio">Alterar</button></td></tr>
-                    <tr><td>Fernando</td><td>Sim</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Fernando">Alterar</button></td></tr>
-                    <tr><td>Claudio</td><td>Não</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Claudio">Alterar</button></td></tr>
-                    <tr><td>Paulo</td><td>Sim</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Paulo">Alterar</button></td></tr>
-                    <tr><td>Felipe</td><td>Sim</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Felipe">Alterar</button></td></tr>
-                    <tr><td>Valdecir</td><td>Sim</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Valdecir">Alterar</button></td></tr>
-                    <tr><td>Winderson</td><td>Não</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Winderson">Alterar</button></td></tr>
-                    <tr><td>Andrei</td><td>Goleiro</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Andrei">Alterar</button></td></tr>
-                    <tr><td>Diogo</td><td>Goleiro</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Diogo">Alterar</button></td></tr>
-                    <tr><td>Douglas</td><td>Sim</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Douglas">Alterar</button></td></tr>
-                    <tr><td>Everson</td><td>Sim</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Everson">Alterar</button></td></tr>
-                    <tr><td>Ezequiel</td><td>Sim</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Ezequiel">Alterar</button></td></tr>
-                    <tr><td>Formentão</td><td>Não</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Formentão">Alterar</button></td></tr>
-                    <tr><td>João Gustavo</td><td>Não</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="João Gustavo">Alterar</button></td></tr>
-                    <tr><td>Kevin</td><td>Não</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Kevin">Alterar</button></td></tr>
-                    <tr><td>Leonardo</td><td>Sim</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Leonardo">Alterar</button></td></tr>
-                    <tr><td>Lucas</td><td>Sim</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Lucas">Alterar</button></td></tr>
-                    <tr><td>Luis Azevedo</td><td>Sim</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Luis Azevedo">Alterar</button></td></tr>
-                    <tr><td>Pedro</td><td>Sim</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Pedro">Alterar</button></td></tr>
-                    <tr><td>Tiago</td><td>Sim</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Tiago">Alterar</button></td></tr>
-                    <tr><td>Alan</td><td>Não</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Alan">Alterar</button></td></tr>
-                    <tr><td>Convidado</td><td>Não</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Convidado1">Alterar</button></td></tr>
-                    <tr><td>Convidado</td><td>Não</td><td class="player-pending">Pendente</td><td><button class="btn btn-sm btn-warning toggle-payment admin-only" data-player="Convidado2">Alterar</button></td></tr>
-                </tbody>
+                    <tr><td>Luis Miguel</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Luis Miguel">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Francisco</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Francisco">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Ander</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Ander">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Thiago</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Thiago">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Eduardo</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Eduardo">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Cassio</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Cassio">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Fernando</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Fernando">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Claudio</td><td>Não</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Claudio">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Paulo</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Paulo">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Felipe</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Felipe">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Valdecir</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Valdecir">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Winderson</td><td>Não</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Winderson">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Andrei</td><td>Goleiro</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Andrei">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Diogo</td><td>Goleiro</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Diogo">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Douglas</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Douglas">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Everson</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Everson">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Ezequiel</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Ezequiel">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Formentão</td><td>Não</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Formentão">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Claudemir</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Claudemir">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Kevin</td><td>Não</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Kevin">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Leonardo</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Leonardo">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Lucas</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Lucas">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Luis Azevedo</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Luis Azevedo">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Pedro</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Pedro">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Tiago</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Tiago">Alterar</button><?php endif; ?></td></tr>
+                    <tr><td>Frederico</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Frederico">Alterar</button><?php endif; ?></td></tr>
+                    </tbody>
             </table>
         </section>
     </div>
 
+    <?php if ($isAdmin): ?>
     <div class="modal fade" id="updateGameModal" tabindex="-1" aria-labelledby="updateGameModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -170,6 +167,7 @@ $isAdmin = isset($_SESSION['admin']);
             </div>
         </div>
     </div>
+    <?php endif; ?>
 
     <footer class="bg-dark text-white text-center py-3">
         <p>© 2025 Destreinados Futebol Clube</p>
@@ -209,15 +207,17 @@ $isAdmin = isset($_SESSION['admin']);
                     document.getElementById('gameLocation').textContent = data.location || 'Arena Bom de Bola';
                     document.getElementById('gameDate').textContent = data.game_date || getNextWednesday();
                     document.getElementById('gameTime').textContent = data.game_time || '22:00';
-                    document.getElementById('locationInput').value = data.location || 'Arena Bom de Bola';
-                    document.getElementById('dateInput').value = data.game_date || getNextWednesday();
-                    document.getElementById('timeInput').value = data.game_time || '22:00';
+                    if (document.getElementById('locationInput')) {
+                        document.getElementById('locationInput').value = data.location || 'Arena Bom de Bola';
+                        document.getElementById('dateInput').value = data.game_date || getNextWednesday();
+                        document.getElementById('timeInput').value = data.game_time || '22:00';
+                    }
                 })
                 .catch(error => {
                     console.error('Erro ao carregar game info:', error);
                     document.getElementById('gameLocation').textContent = 'Erro ao carregar';
-                    document.getElementById('gameDate').textContent = getNextWednesday(); // Fallback para data
-                    document.getElementById('timeInput').value = '22:00'; // Fallback para horário
+                    document.getElementById('gameDate').textContent = getNextWednesday();
+                    document.getElementById('gameTime').textContent = 'Erro ao carregar';
                 });
         }
 
@@ -249,7 +249,6 @@ $isAdmin = isset($_SESSION['admin']);
         document.addEventListener('DOMContentLoaded', () => {
             loadGameInfo();
             loadPaymentStatus();
-            document.getElementById('dateInput').value = getNextWednesday(); // Define a data padrão no modal
         });
 
         document.getElementById('loginForm')?.addEventListener('submit', function(e) {
@@ -304,7 +303,7 @@ $isAdmin = isset($_SESSION['admin']);
             });
         });
 
-        document.getElementById('saveGameInfo').addEventListener('click', function() {
+        document.getElementById('saveGameInfo')?.addEventListener('click', function() {
             const location = document.getElementById('locationInput').value;
             const date = getNextWednesday();
             const time = document.getElementById('timeInput').value;
