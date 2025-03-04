@@ -1,27 +1,22 @@
 <?php
 header('Content-Type: application/json');
-require 'config.php';
-session_start();
+require_once 'config.php';
 
-if (!isset($_SESSION['admin'])) {
-    echo json_encode(['success' => false, 'error' => 'Acesso negado']);
-    exit;
-}
+try {
+    $location = $_POST['location'] ?? '';
+    $date = $_POST['date'] ?? '';
+    $time = $_POST['time'] ?? '';
 
-$location = $_POST['location'] ?? '';
-$date = $_POST['date'] ?? '';
-$time = $_POST['time'] ?? '';
-
-if ($location && $date && $time) {
-    try {
-        $stmt = $pdo->prepare("REPLACE INTO game_info (id, location, game_date, game_time) VALUES (1, ?, ?, ?)");
-        $success = $stmt->execute([$location, $date, $time]);
-        echo json_encode(['success' => $success]);
-    } catch (PDOException $e) {
-        echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+    if (empty($location) || empty($date) || empty($time)) {
+        throw new Exception('Dados inválidos');
     }
-} else {
-    echo json_encode(['success' => false, 'error' => 'Dados inválidos']);
+
+    $stmt = $pdo->prepare("INSERT INTO games (location, game_date, game_time) VALUES (:location, :date, :time) 
+        ON DUPLICATE KEY UPDATE location = :location, game_date = :date, game_time = :time");
+    $stmt->execute(['location' => $location, 'date' => $date, 'time' => $time]);
+
+    echo json_encode(['success' => true]);
+} catch (Exception $e) {
+    echo json_encode(['success' => false, 'error' => $e->getMessage()]);
 }
-exit;
 ?>

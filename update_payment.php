@@ -1,26 +1,28 @@
 <?php
 header('Content-Type: application/json');
-require 'config.php';
-session_start();
+require_once 'config.php';
 
-if (!isset($_SESSION['admin'])) {
-    echo json_encode(['success' => false, 'error' => 'Acesso negado']);
-    exit;
-}
+try {
+    $player = $_POST['player'] ?? '';
+    $status = $_POST['status'] ?? '';
+    $month = date('Y-m');
 
-$player = $_POST['player'] ?? '';
-$status = $_POST['status'] ?? '';
-
-if ($player && in_array($status, ['OK', 'Pendente'])) {
-    try {
-        $stmt = $pdo->prepare("INSERT INTO payments (player, status, last_reset) VALUES (?, ?, CURDATE()) ON DUPLICATE KEY UPDATE status = ?, last_reset = CURDATE()");
-        $success = $stmt->execute([$player, $status, $status]);
-        echo json_encode(['success' => $success]);
-    } catch (PDOException $e) {
-        echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+    if (empty($player) || !in_array($status, ['OK', 'Pendente'])) {
+        throw new Exception('Dados inválidos');
     }
-} else {
-    echo json_encode(['success' => false, 'error' => 'Dados inválidos']);
+
+    $payment_date = ($status === 'OK') ? date('Y-m-d H:i:s') : NULL;
+
+    $stmt = $pdo->prepare("UPDATE payments SET status = :status, payment_date = :payment_date, month = :month WHERE player_name = :player");
+    $stmt->execute([
+        'status' => $status,
+        'payment_date' => $payment_date,
+        'month' => $month,
+        'player' => $player
+    ]);
+
+    echo json_encode(['success' => true]);
+} catch (Exception $e) {
+    echo json_encode(['success' => false, 'error' => $e->getMessage()]);
 }
-exit;
 ?>

@@ -1,7 +1,18 @@
 <?php
 session_start();
 $isAdmin = isset($_SESSION['admin']);
+require_once 'config.php';
+
+// Carregar os jogadores do banco com ordenação alfabética dentro de cada tipo
+$stmt = $pdo->query("SELECT player_name, type, status FROM payments ORDER BY 
+    CASE 
+        WHEN type = 'Goleiro' THEN 1 
+        WHEN type = 'Sim' THEN 2 
+        WHEN type = 'Não' THEN 3 
+    END, player_name ASC");
+$sortedPlayers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -13,10 +24,14 @@ $isAdmin = isset($_SESSION['admin']);
         .player-paid { color: green; font-weight: bold; }
         .player-pending { color: red; }
         .login-form { max-width: 300px; }
+        header { background-color: #2c3e50; }
+        .btn-success { background-color: #27ae60; border-color: #27ae60; }
+        footer { background-color: #2c3e50; }
+        h2 { color: #27ae60; }
     </style>
 </head>
 <body>
-    <header class="bg-dark text-white py-3">
+    <header class="text-white py-3">
         <div class="container d-flex justify-content-between align-items-center">
             <h1 class="h3 mb-0">Destreinados Futebol Clube</h1>
             <?php if (!$isAdmin): ?>
@@ -44,49 +59,8 @@ $isAdmin = isset($_SESSION['admin']);
 
         <section class="mb-5">
             <h2>Jogadores</h2>
-            <div class="row">
-                <div class="col-md-3">
-                    <ul class="list-group">
-                        <li class="list-group-item">1. Luis Miguel</li>
-                        <li class="list-group-item">2. Francisco</li>
-                        <li class="list-group-item">3. Ander</li>
-                        <li class="list-group-item">4. Thiago</li>
-                        <li class="list-group-item">5. Eduardo</li>
-                        <li class="list-group-item">6. Cassio</li>
-                        <li class="list-group-item">7. Fernando</li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <ul class="list-group">
-                        <li class="list-group-item">8. Claudio</li>
-                        <li class="list-group-item">9. Paulo</li>
-                        <li class="list-group-item">10. Felipe</li>
-                        <li class="list-group-item">11. Valdecir</li>
-                        <li class="list-group-item">12. Winderson</li>
-                        <li class="list-group-item">13. Andrei</li>
-                        <li class="list-group-item">14. Diogo</li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <ul class="list-group">
-                        <li class="list-group-item">15. Douglas</li>
-                        <li class="list-group-item">16. Everson</li>
-                        <li class="list-group-item">17. Ezequiel</li>
-                        <li class="list-group-item">18. Formentão</li>
-                        <li class="list-group-item">19. João Gustavo</li>
-                        <li class="list-group-item">20. Kevin</li>
-                        <li class="list-group-item">21. Leonardo</li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <ul class="list-group">
-                        <li class="list-group-item">22. Lucas</li>
-                        <li class="list-group-item">23. Luis Azevedo</li>
-                        <li class="list-group-item">24. Pedro</li>
-                        <li class="list-group-item">25. Tiago</li>
-                        <li class="list-group-item">26. Frederico</li>
-                    </ul>
-                </div>
+            <div class="row" id="playersList">
+                <!-- Lista gerada dinamicamente pelo JavaScript -->
             </div>
         </section>
 
@@ -95,47 +69,113 @@ $isAdmin = isset($_SESSION['admin']);
                 $months = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
                 echo $months[date('n') - 1] . ' ' . date('Y');
             ?></h2>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Jogador</th>
-                        <th>Mensalista</th>
-                        <th>Status</th>
-                        <th>Ação</th>
-                    </tr>
-                </thead>
-                <tbody id="paymentTable">
-                    <tr><td>Luis Miguel</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Luis Miguel">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Francisco</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Francisco">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Ander</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Ander">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Thiago</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Thiago">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Eduardo</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Eduardo">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Cassio</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Cassio">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Fernando</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Fernando">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Claudio</td><td>Não</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Claudio">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Paulo</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Paulo">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Felipe</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Felipe">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Valdecir</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Valdecir">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Winderson</td><td>Não</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Winderson">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Andrei</td><td>Goleiro</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Andrei">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Diogo</td><td>Goleiro</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Diogo">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Douglas</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Douglas">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Everson</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Everson">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Ezequiel</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Ezequiel">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Formentão</td><td>Não</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Formentão">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Claudemir</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Claudemir">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Kevin</td><td>Não</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Kevin">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Leonardo</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Leonardo">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Lucas</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Lucas">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Luis Azevedo</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Luis Azevedo">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Pedro</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Pedro">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Tiago</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Tiago">Alterar</button><?php endif; ?></td></tr>
-                    <tr><td>Frederico</td><td>Sim</td><td class="player-pending">Pendente</td><td><?php if ($isAdmin): ?><button class="btn btn-sm btn-warning toggle-payment" data-player="Frederico">Alterar</button><?php endif; ?></td></tr>
+            <?php if ($isAdmin): ?>
+            <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addPlayerModal">Adicionar Jogador</button>
+            <?php endif; ?>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Jogador</th>
+                            <th>Mensalista</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="paymentTable">
+                        <?php foreach ($sortedPlayers as $player): ?>
+                        <tr>
+                            <td><?php echo $player['player_name']; ?></td>
+                            <td><?php echo $player['type']; ?></td>
+                            <td class="<?php echo $player['status'] === 'OK' ? 'player-paid' : 'player-pending'; ?>">
+                                <?php echo $player['status']; ?>
+                            </td>
+                            <td>
+                                <?php if ($isAdmin): ?>
+                                <button class="btn btn-sm btn-warning toggle-payment" data-player="<?php echo $player['player_name']; ?>">Alterar</button>
+                                <button class="btn btn-sm btn-primary edit-player" data-player="<?php echo $player['player_name']; ?>" data-type="<?php echo $player['type']; ?>" data-bs-toggle="modal" data-bs-target="#editPlayerModal">Editar</button>
+                                <button class="btn btn-sm btn-danger delete-player" data-player="<?php echo $player['player_name']; ?>">Excluir</button>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
                     </tbody>
-            </table>
+                </table>
+            </div>
+            <?php if ($isAdmin): ?>
+            <a href="report.php?month=<?php echo date('Y-m'); ?>" class="btn btn-info mt-3">Ver Relatório Mensal</a>
+            <?php endif; ?>
         </section>
     </div>
 
+    <!-- Modal para Adicionar Jogador -->
+    <?php if ($isAdmin): ?>
+    <div class="modal fade" id="addPlayerModal" tabindex="-1" aria-labelledby="addPlayerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addPlayerModalLabel">Adicionar Novo Jogador</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addPlayerForm">
+                        <div class="mb-3">
+                            <label for="newPlayerName" class="form-label">Nome do Jogador</label>
+                            <input type="text" class="form-control" id="newPlayerName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPlayerType" class="form-label">Tipo</label>
+                            <select class="form-select" id="newPlayerType" required>
+                                <option value="Goleiro">Goleiro</option>
+                                <option value="Sim">Mensalista</option>
+                                <option value="Não">Não Mensalista</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" id="saveNewPlayer">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Editar Jogador -->
+    <div class="modal fade" id="editPlayerModal" tabindex="-1" aria-labelledby="editPlayerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editPlayerModalLabel">Editar Jogador</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editPlayerForm">
+                        <input type="hidden" id="editOldName">
+                        <div class="mb-3">
+                            <label for="editPlayerName" class="form-label">Nome do Jogador</label>
+                            <input type="text" class="form-control" id="editPlayerName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPlayerType" class="form-label">Tipo</label>
+                            <select class="form-select" id="editPlayerType" required>
+                                <option value="Goleiro">Goleiro</option>
+                                <option value="Sim">Mensalista</option>
+                                <option value="Não">Não Mensalista</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" id="saveEditPlayer">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+
+    <!-- Modal para Atualizar Jogo -->
     <?php if ($isAdmin): ?>
     <div class="modal fade" id="updateGameModal" tabindex="-1" aria-labelledby="updateGameModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -169,7 +209,18 @@ $isAdmin = isset($_SESSION['admin']);
     </div>
     <?php endif; ?>
 
-    <footer class="bg-dark text-white text-center py-3">
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="actionToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Ação</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body"></div>
+        </div>
+    </div>
+
+    <footer class="text-white text-center py-3">
         <p>© 2025 Destreinados Futebol Clube</p>
     </footer>
 
@@ -191,18 +242,19 @@ $isAdmin = isset($_SESSION['admin']);
             return `${nextWednesday.getDate()} de ${months[nextWednesday.getMonth()]} de ${nextWednesday.getFullYear()}`;
         }
 
+        function showToast(message) {
+            const toast = new bootstrap.Toast(document.getElementById('actionToast'));
+            document.querySelector('#actionToast .toast-body').textContent = message;
+            toast.show();
+        }
+
         function loadGameInfo() {
             fetch('get_game_info.php')
                 .then(response => {
-                    if (!response.ok) {
-                        console.error('Erro na requisição get_game_info:', response.status);
-                        throw new Error('Erro na resposta: ' + response.status);
-                    }
-                    return response.text();
+                    if (!response.ok) throw new Error('Erro na resposta: ' + response.status);
+                    return response.json();
                 })
-                .then(text => {
-                    console.log('Resposta bruta de get_game_info:', text);
-                    const data = JSON.parse(text);
+                .then(data => {
                     if (data.success === false) throw new Error(data.error);
                     document.getElementById('gameLocation').textContent = data.location || 'Arena Bom de Bola';
                     document.getElementById('gameDate').textContent = data.game_date || getNextWednesday();
@@ -224,26 +276,100 @@ $isAdmin = isset($_SESSION['admin']);
         function loadPaymentStatus() {
             fetch('get_payments.php')
                 .then(response => {
-                    if (!response.ok) {
-                        console.error('Erro na requisição get_payments:', response.status);
-                        throw new Error('Erro na resposta: ' + response.status);
-                    }
-                    return response.text();
+                    if (!response.ok) throw new Error('Erro na resposta: ' + response.status);
+                    return response.json();
                 })
-                .then(text => {
-                    console.log('Resposta bruta de get_payments:', text);
-                    const data = JSON.parse(text);
+                .then(data => {
                     if (data.success === false) throw new Error(data.error);
                     document.querySelectorAll('#paymentTable tr').forEach(row => {
                         const player = row.querySelector('td:first-child').textContent.trim();
                         const statusCell = row.querySelector('td:nth-child(3)');
-                        if (data[player]) {
-                            statusCell.textContent = data[player];
-                            statusCell.className = data[player] === 'OK' ? 'player-paid' : 'player-pending';
+                        if (data.data[player]) {
+                            statusCell.textContent = data.data[player];
+                            statusCell.className = data.data[player] === 'OK' ? 'player-paid' : 'player-pending';
                         }
                     });
+                    loadPlayers();
                 })
                 .catch(error => console.error('Erro ao carregar pagamentos:', error));
+        }
+
+        function loadPlayers() {
+            const playersData = Array.from(document.querySelectorAll('#paymentTable tr')).map(row => {
+                const cells = row.querySelectorAll('td');
+                return {
+                    name: cells[0].textContent.trim(),
+                    type: cells[1].textContent.trim(),
+                    status: cells[2].textContent.trim()
+                };
+            });
+
+            const goalkeepers = playersData.filter(p => p.type === 'Goleiro');
+            const monthlyPlayers = playersData.filter(p => p.type === 'Sim');
+            const nonMonthlyPlayers = playersData.filter(p => p.type === 'Não');
+
+            const sortedPlayers = [...goalkeepers, ...monthlyPlayers, ...nonMonthlyPlayers];
+            const playersPerColumn = Math.ceil(sortedPlayers.length / 4);
+            const columns = [[], [], [], []];
+            sortedPlayers.forEach((player, index) => {
+                const columnIndex = Math.floor(index / playersPerColumn);
+                if (columnIndex < 4) columns[columnIndex].push(player);
+            });
+
+            const playersList = document.getElementById('playersList');
+            playersList.innerHTML = columns.map(column => `
+                <div class="col-md-3">
+                    <ul class="list-group">
+                        ${column.map(player => `
+                            <li class="list-group-item">
+                                ${player.name} 
+                                <small class="text-muted">(${player.type})</small>
+                                <span class="${player.status === 'OK' ? 'player-paid' : 'player-pending'}">
+                                    ${player.status}
+                                </span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `).join('');
+        }
+
+        function updatePayment(player, newStatus) {
+            fetch('update_payment.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `player=${encodeURIComponent(player)}&status=${encodeURIComponent(newStatus)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    loadPaymentStatus();
+                    showToast(`Status de ${player} atualizado para ${newStatus}!`);
+                } else {
+                    alert('Erro ao atualizar pagamento: ' + (data.error || 'Desconhecido'));
+                }
+            })
+            .catch(error => console.error('Erro ao atualizar pagamento:', error));
+        }
+
+        function deletePlayer(player) {
+            if (confirm(`Tem certeza que deseja excluir ${player}?`)) {
+                fetch('delete_player.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `player_name=${encodeURIComponent(player)}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        loadPaymentStatus();
+                        showToast(`${player} excluído com sucesso!`);
+                    } else {
+                        alert('Erro ao excluir jogador: ' + (data.error || 'Desconhecido'));
+                    }
+                })
+                .catch(error => console.error('Erro ao excluir jogador:', error));
+            }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -283,23 +409,10 @@ $isAdmin = isset($_SESSION['admin']);
                 const row = this.closest('tr');
                 const statusCell = row.querySelector('td:nth-child(3)');
                 const player = row.querySelector('td:first-child').textContent.trim();
-                const newStatus = statusCell.textContent === 'OK' ? 'Pendente' : 'OK';
+                const currentStatus = statusCell.textContent.trim();
+                const newStatus = currentStatus === 'OK' ? 'Pendente' : 'OK';
 
-                fetch('update_payment.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `player=${encodeURIComponent(player)}&status=${newStatus}`
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        statusCell.textContent = newStatus;
-                        statusCell.className = newStatus === 'OK' ? 'player-paid' : 'player-pending';
-                    } else {
-                        alert('Erro ao atualizar pagamento: ' + (data.error || 'Desconhecido'));
-                    }
-                })
-                .catch(error => console.error('Erro ao atualizar pagamento:', error));
+                updatePayment(player, newStatus);
             });
         });
 
@@ -313,13 +426,8 @@ $isAdmin = isset($_SESSION['admin']);
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: `location=${encodeURIComponent(location)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`
             })
-            .then(response => {
-                console.log('update_game_info Status:', response.status);
-                return response.text();
-            })
-            .then(text => {
-                console.log('update_game_info Resposta:', text);
-                const data = JSON.parse(text);
+            .then(response => response.json())
+            .then(data => {
                 if (data.success) {
                     document.getElementById('gameLocation').textContent = location;
                     document.getElementById('gameDate').textContent = date;
@@ -329,11 +437,87 @@ $isAdmin = isset($_SESSION['admin']);
                     document.getElementById('timeInput').value = time;
                     const modal = bootstrap.Modal.getInstance(document.getElementById('updateGameModal'));
                     modal.hide();
+                    showToast('Jogo atualizado com sucesso!');
                 } else {
                     alert('Erro ao atualizar jogo: ' + (data.error || 'Desconhecido'));
                 }
             })
             .catch(error => console.error('Erro ao atualizar jogo:', error));
+        });
+
+        document.getElementById('saveNewPlayer')?.addEventListener('click', function() {
+            const playerName = document.getElementById('newPlayerName').value.trim();
+            const playerType = document.getElementById('newPlayerType').value;
+
+            if (!playerName) {
+                alert('O nome do jogador não pode estar vazio!');
+                return;
+            }
+
+            fetch('add_player.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `player_name=${encodeURIComponent(playerName)}&type=${encodeURIComponent(playerType)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('addPlayerModal'));
+                    modal.hide();
+                    loadPaymentStatus();
+                    document.getElementById('addPlayerForm').reset();
+                    showToast('Jogador adicionado com sucesso!');
+                } else {
+                    alert('Erro ao adicionar jogador: ' + (data.error || 'Desconhecido'));
+                }
+            })
+            .catch(error => console.error('Erro ao adicionar jogador:', error));
+        });
+
+        document.querySelectorAll('.edit-player').forEach(button => {
+            button.addEventListener('click', function() {
+                const playerName = this.getAttribute('data-player');
+                const playerType = this.getAttribute('data-type');
+                document.getElementById('editOldName').value = playerName;
+                document.getElementById('editPlayerName').value = playerName;
+                document.getElementById('editPlayerType').value = playerType;
+            });
+        });
+
+        document.getElementById('saveEditPlayer')?.addEventListener('click', function() {
+            const oldName = document.getElementById('editOldName').value;
+            const playerName = document.getElementById('editPlayerName').value.trim();
+            const playerType = document.getElementById('editPlayerType').value;
+
+            if (!playerName) {
+                alert('O nome do jogador não pode estar vazio!');
+                return;
+            }
+
+            fetch('edit_player.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `old_name=${encodeURIComponent(oldName)}&player_name=${encodeURIComponent(playerName)}&type=${encodeURIComponent(playerType)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('editPlayerModal'));
+                    modal.hide();
+                    loadPaymentStatus();
+                    showToast('Jogador editado com sucesso!');
+                } else {
+                    alert('Erro ao editar jogador: ' + (data.error || 'Desconhecido'));
+                }
+            })
+            .catch(error => console.error('Erro ao editar jogador:', error));
+        });
+
+        document.querySelectorAll('.delete-player').forEach(button => {
+            button.addEventListener('click', function() {
+                const player = this.getAttribute('data-player');
+                deletePlayer(player);
+            });
         });
     </script>
 </body>

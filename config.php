@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
-$dbname = 'luismi71_destreinados_novo'; // Nome do novo banco
-$username = 'luismi71_destreinados_new'; // Novo usuário
-$password = 'NovoDestreinados2025!'; // Nova senha
+$dbname = 'luismi71_destreinados_bd';
+$username = 'luismi71_admin';
+$password = 'destreinados';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
