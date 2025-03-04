@@ -7,7 +7,7 @@ try {
     $status = $_POST['status'] ?? '';
     $month = date('Y-m');
 
-    if (empty($player) || !in_array($status, ['OK', 'Pendente'])) {
+    if (empty($player) || !in_array($status, ['OK', 'Pendente', 'Isento'])) {
         throw new Exception('Dados inválidos');
     }
 

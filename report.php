@@ -8,7 +8,7 @@ if (!$isAdmin) {
 }
 
 $month = $_GET['month'] ?? date('Y-m');
-$months = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+$months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 
 $stmt = $pdo->prepare("SELECT player_name, type, status, payment_date FROM payments WHERE month = :month ORDER BY 
     CASE 
@@ -20,7 +20,8 @@ $stmt->execute(['month' => $month]);
 $players = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $paid = count(array_filter($players, fn($p) => $p['status'] === 'OK'));
-$pending = count($players) - $paid;
+$pending = count(array_filter($players, fn($p) => $p['status'] === 'Pendente'));
+$exempt = count(array_filter($players, fn($p) => $p['status'] === 'Isento'));
 ?>
 
 <!DOCTYPE html>
@@ -33,6 +34,7 @@ $pending = count($players) - $paid;
     <style>
         .player-paid { color: green; font-weight: bold; }
         .player-pending { color: red; }
+        .player-exempt { color: blue; font-weight: bold; }
         h1 { color: #27ae60; }
         .summary { font-weight: bold; }
     </style>
@@ -52,7 +54,7 @@ $pending = count($players) - $paid;
                 ?>
             </select>
         </form>
-        <p class="summary">Total de Pagantes: <?php echo $paid; ?> | Total de Pendentes: <?php echo $pending; ?></p>
+        <p class="summary">Total de Pagantes: <?php echo $paid; ?> | Total de Pendentes: <?php echo $pending; ?> | Total de Isentos: <?php echo $exempt; ?></p>
         <a href="index.php" class="btn btn-secondary mb-3">Voltar</a>
         <a href="export_report.php?month=<?php echo $month; ?>" class="btn btn-success mb-3">Exportar como PDF</a>
         <div class="table-responsive">
@@ -70,7 +72,11 @@ $pending = count($players) - $paid;
                     <tr>
                         <td><?php echo $player['player_name']; ?></td>
                         <td><?php echo $player['type']; ?></td>
-                        <td class="<?php echo $player['status'] === 'OK' ? 'player-paid' : 'player-pending'; ?>">
+                        <td class="<?php 
+                            if ($player['status'] === 'OK') echo 'player-paid';
+                            elseif ($player['status'] === 'Pendente') echo 'player-pending';
+                            elseif ($player['status'] === 'Isento') echo 'player-exempt';
+                        ?>">
                             <?php echo $player['status']; ?>
                         </td>
                         <td><?php echo $player['payment_date'] ? date('d/m/Y H:i', strtotime($player['payment_date'])) : 'N/A'; ?></td>

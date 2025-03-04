@@ -23,17 +23,22 @@ $sortedPlayers = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <style>
         .player-paid { color: green; font-weight: bold; }
         .player-pending { color: red; }
+        .player-exempt { color: blue; font-weight: bold; }
         .login-form { max-width: 300px; }
         header { background-color: #2c3e50; }
         .btn-success { background-color: #27ae60; border-color: #27ae60; }
         footer { background-color: #2c3e50; }
         h2 { color: #27ae60; }
+        .logo { max-height: 50px; margin-right: 10px; } /* Estilo para a logo */
     </style>
 </head>
 <body>
     <header class="text-white py-3">
         <div class="container d-flex justify-content-between align-items-center">
-            <h1 class="h3 mb-0">Destreinados Futebol Clube</h1>
+            <div class="d-flex align-items-center">
+                <img src="logo.png" alt="Logo Destreinados FC" class="logo"> <!-- Logo adicionada aqui -->
+                <h1 class="h3 mb-0">Destreinados Futebol Clube</h1>
+            </div>
             <?php if (!$isAdmin): ?>
             <form id="loginForm" class="login-form d-flex gap-2">
                 <input type="text" class="form-control form-control-sm" id="username" placeholder="Usuário" required>
@@ -66,7 +71,7 @@ $sortedPlayers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <section>
             <h2>Lista de Pagamentos - <?php 
-                $months = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+                $months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
                 echo $months[date('n') - 1] . ' ' . date('Y');
             ?></h2>
             <?php if ($isAdmin): ?>
@@ -87,12 +92,16 @@ $sortedPlayers = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <tr>
                             <td><?php echo $player['player_name']; ?></td>
                             <td><?php echo $player['type']; ?></td>
-                            <td class="<?php echo $player['status'] === 'OK' ? 'player-paid' : 'player-pending'; ?>">
+                            <td class="<?php 
+                                if ($player['status'] === 'OK') echo 'player-paid';
+                                elseif ($player['status'] === 'Pendente') echo 'player-pending';
+                                elseif ($player['status'] === 'Isento') echo 'player-exempt';
+                            ?>">
                                 <?php echo $player['status']; ?>
                             </td>
                             <td>
                                 <?php if ($isAdmin): ?>
-                                <button class="btn btn-sm btn-warning toggle-payment" data-player="<?php echo $player['player_name']; ?>">Alterar</button>
+                                <button class="btn btn-sm btn-warning toggle-payment" data-player="<?php echo $player['player_name']; ?>" data-type="<?php echo $player['type']; ?>">Alterar</button>
                                 <button class="btn btn-sm btn-primary edit-player" data-player="<?php echo $player['player_name']; ?>" data-type="<?php echo $player['type']; ?>" data-bs-toggle="modal" data-bs-target="#editPlayerModal">Editar</button>
                                 <button class="btn btn-sm btn-danger delete-player" data-player="<?php echo $player['player_name']; ?>">Excluir</button>
                                 <?php endif; ?>
@@ -103,7 +112,7 @@ $sortedPlayers = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </table>
             </div>
             <?php if ($isAdmin): ?>
-            <a href="report.php?month=<?php echo date('Y-m'); ?>" class="btn btn-info mt-3">Ver Relatório Mensal</a>
+            <a href="report.php?month=<?php echo date('Y-m'); ?>" target="_blank" class="btn btn-info mt-3">Relatório Mensal</a>
             <?php endif; ?>
         </section>
     </div>
@@ -230,17 +239,24 @@ $sortedPlayers = $stmt->fetchAll(PDO::FETCH_ASSOC);
         const adminPassword = "destreinados123";
 
         function getNextWednesday() {
-            const today = new Date();
-            const dayOfWeek = today.getDay();
-            const daysUntilWednesday = (3 - dayOfWeek + 7) % 7 || 7;
-            const nextWednesday = new Date(today);
-            nextWednesday.setDate(today.getDate() + daysUntilWednesday);
-            const months = [
-                'janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho',
-                'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'
-            ];
-            return `${nextWednesday.getDate()} de ${months[nextWednesday.getMonth()]} de ${nextWednesday.getFullYear()}`;
-        }
+    const today = new Date();
+    const dayOfWeek = today.getDay(); // 0 = Domingo, 1 = Segunda, ..., 3 = Quarta
+    const hours = today.getHours();
+    const daysUntilWednesday = (3 - dayOfWeek + 7) % 7 || 7;
+
+    // Se hoje é quarta-feira (dayOfWeek === 3) e ainda não passou das 22h, mantém a data de hoje
+    if (dayOfWeek === 3 && hours < 22) {
+        daysUntilWednesday = 0;
+    }
+
+    const nextWednesday = new Date(today);
+    nextWednesday.setDate(today.getDate() + daysUntilWednesday);
+    const months = [
+        'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+        'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    ];
+    return `${nextWednesday.getDate()} de ${months[nextWednesday.getMonth()]} de ${nextWednesday.getFullYear()}`;
+}
 
         function showToast(message) {
             const toast = new bootstrap.Toast(document.getElementById('actionToast'));
@@ -286,7 +302,9 @@ $sortedPlayers = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         const statusCell = row.querySelector('td:nth-child(3)');
                         if (data.data[player]) {
                             statusCell.textContent = data.data[player];
-                            statusCell.className = data.data[player] === 'OK' ? 'player-paid' : 'player-pending';
+                            statusCell.className = data.data[player] === 'OK' ? 'player-paid' : 
+                                                   data.data[player] === 'Pendente' ? 'player-pending' : 
+                                                   'player-exempt';
                         }
                     });
                     loadPlayers();
@@ -324,7 +342,7 @@ $sortedPlayers = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <li class="list-group-item">
                                 ${player.name} 
                                 <small class="text-muted">(${player.type})</small>
-                                <span class="${player.status === 'OK' ? 'player-paid' : 'player-pending'}">
+                                <span class="${player.status === 'OK' ? 'player-paid' : player.status === 'Pendente' ? 'player-pending' : 'player-exempt'}">
                                     ${player.status}
                                 </span>
                             </li>
@@ -409,8 +427,16 @@ $sortedPlayers = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 const row = this.closest('tr');
                 const statusCell = row.querySelector('td:nth-child(3)');
                 const player = row.querySelector('td:first-child').textContent.trim();
+                const type = this.getAttribute('data-type');
                 const currentStatus = statusCell.textContent.trim();
-                const newStatus = currentStatus === 'OK' ? 'Pendente' : 'OK';
+
+                let newStatus;
+                if (type === 'Goleiro') {
+                    newStatus = currentStatus === 'OK' ? 'Pendente' : 
+                               currentStatus === 'Pendente' ? 'Isento' : 'OK';
+                } else {
+                    newStatus = currentStatus === 'OK' ? 'Pendente' : 'OK';
+                }
 
                 updatePayment(player, newStatus);
             });
