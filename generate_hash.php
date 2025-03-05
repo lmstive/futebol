@@ -1,5 +1,5 @@
 <?php
-$password = 'destreinados123';
+$password = 'lendarios123';
 $hash = password_hash($password, PASSWORD_DEFAULT);
 echo $hash;
 ?>

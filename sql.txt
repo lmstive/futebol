@@ -1,0 +1,28 @@
+-- Usar o banco de dados
+USE luismi71_lendarios_bd;
+
+-- Criar a tabela 'payments'
+CREATE TABLE payments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    player_name VARCHAR(100) NOT NULL UNIQUE,
+    type ENUM('Goleiro', 'Sim', 'Não') NOT NULL,
+    status ENUM('OK', 'Pendente', 'Isento') NOT NULL DEFAULT 'Pendente',
+    payment_date DATETIME DEFAULT NULL,
+    month VARCHAR(7) DEFAULT NULL
+);
+
+-- Criar a tabela 'games'
+CREATE TABLE games (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    location VARCHAR(100) NOT NULL,
+    game_date VARCHAR(50) NOT NULL,
+    game_time VARCHAR(10) NOT NULL
+);
+
+-- Inserir dados iniciais (exemplo)
+INSERT INTO payments (player_name, type, status, month) VALUES
+('Jogador Teste 1', 'Goleiro', 'Isento', '2025-03'),
+('Jogador Teste 2', 'Sim', 'Pendente', '2025-03');
+
+INSERT INTO games (location, game_date, game_time) VALUES
+('Arena Teste', '5 de Março de 2025', '22:00');
