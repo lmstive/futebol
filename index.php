@@ -88,7 +88,7 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
             background-color: var(--primary-color);
             border-color: var(--primary-color);
         }
-        
+
         .btn-success:hover {
             background-color: #219653;
             border-color: #219653;
@@ -112,7 +112,7 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
             margin-right: 15px;
             transition: transform 0.3s ease;
         }
-        
+
         .logo:hover {
             transform: scale(1.05);
         }
@@ -124,7 +124,7 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
             margin-bottom: 20px;
             background-color: var(--card-bg);
         }
-        
+
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -142,23 +142,23 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
             background-color: var(--card-bg);
             color: var(--text-color);
         }
-        
+
         .list-group-item:hover {
             background-color: rgba(0, 0, 0, 0.05);
             border-left-color: var(--primary-color);
         }
-        
+
         .dark-mode .list-group-item:hover {
             background-color: rgba(255, 255, 255, 0.05);
         }
-        
+
         .table {
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             color: var(--text-color);
         }
-        
+
         .table thead th {
             background-color: var(--secondary-color);
             color: white;
@@ -168,61 +168,61 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
         .table tbody td {
             background-color: var(--card-bg);
         }
-        
-        .table-striped > tbody > tr:nth-of-type(odd) > * {
+
+        .table-striped>tbody>tr:nth-of-type(odd)>* {
             background-color: rgba(0, 0, 0, 0.02);
         }
-        
-        .dark-mode .table-striped > tbody > tr:nth-of-type(odd) > * {
+
+        .dark-mode .table-striped>tbody>tr:nth-of-type(odd)>* {
             background-color: rgba(255, 255, 255, 0.02);
         }
-        
+
         .badge {
             padding: 6px 10px;
             font-weight: 500;
             border-radius: 20px;
         }
-        
+
         .badge-primary {
             background-color: var(--accent-color);
         }
-        
+
         .badge-success {
             background-color: var(--primary-color);
         }
-        
+
         .badge-danger {
             background-color: #e74c3c;
         }
-        
+
         .badge-info {
             background-color: var(--secondary-color);
         }
-        
+
         .modal-content {
             background-color: var(--card-bg);
             color: var(--text-color);
         }
-        
+
         .modal-header {
             background-color: var(--secondary-color);
             color: white;
         }
-        
+
         .btn-close {
             filter: invert(1) brightness(200%);
         }
-        
+
         .toast {
             background-color: var(--secondary-color);
             color: white;
         }
-        
+
         .toast-header {
             background-color: var(--primary-color);
             color: white;
         }
-        
+
         .player-list-container {
             background-color: var(--card-bg);
             border-radius: 10px;
@@ -230,7 +230,7 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             margin-bottom: 30px;
         }
-        
+
         .game-info-card {
             border-left: 5px solid var(--primary-color);
             background-color: var(--card-bg);
@@ -239,7 +239,7 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             margin-bottom: 30px;
         }
-        
+
         .stats-card {
             text-align: center;
             padding: 20px;
@@ -248,43 +248,43 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             margin-bottom: 20px;
         }
-        
+
         .stats-value {
             font-size: 2rem;
             font-weight: bold;
             color: var(--primary-color);
             margin: 10px 0;
         }
-        
+
         .stats-label {
             font-size: 1rem;
             color: var(--text-color);
             text-transform: uppercase;
         }
-        
+
         .stats-icon {
             font-size: 2rem;
             color: var(--accent-color);
             margin-bottom: 10px;
         }
-        
+
         .status-badge {
             padding: 5px 10px;
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: bold;
         }
-        
+
         .status-ok {
             background-color: var(--primary-color);
             color: white;
         }
-        
+
         .status-pendente {
             background-color: #e74c3c;
             color: white;
         }
-        
+
         .status-isento {
             background-color: var(--accent-color);
             color: white;
@@ -302,17 +302,20 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
             color: var(--primary-color);
         }
 
-        .form-control, .form-select {
+        .form-control,
+        .form-select {
             background-color: var(--card-bg);
             color: var(--text-color);
             border-color: rgba(0, 0, 0, 0.1);
         }
 
-        .dark-mode .form-control, .dark-mode .form-select {
+        .dark-mode .form-control,
+        .dark-mode .form-select {
             border-color: rgba(255, 255, 255, 0.1);
         }
 
-        .form-control:focus, .form-select:focus {
+        .form-control:focus,
+        .form-select:focus {
             background-color: var(--card-bg);
             color: var(--text-color);
         }
@@ -386,12 +389,33 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
             margin-bottom: 20px;
         }
 
+        /* Estilos para o botão de excluir */
+        .delete-photo {
+            opacity: 0.7;
+            transition: opacity 0.3s;
+            z-index: 10;
+        }
+
+        .delete-photo:hover {
+            opacity: 1;
+        }
+
+        /* Adicionar efeito de hover vermelho para botão de exclusão */
+        .gallery-item .btn-danger {
+            background-color: rgba(220, 53, 69, 0.8);
+            border-color: transparent;
+        }
+
+        .gallery-item .btn-danger:hover {
+            background-color: rgba(220, 53, 69, 1);
+        }
+
         /* Responsividade */
         @media (max-width: 768px) {
             .login-form input {
                 margin-bottom: 5px;
             }
-            
+
             .stats-card {
                 margin-bottom: 15px;
             }
@@ -399,8 +423,18 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
             .gallery-item img {
                 height: 150px;
             }
+
+            /* Para dispositivos móveis, sempre mostrar os botões */
+            .delete-photo {
+                opacity: 1;
+            }
+
+            .gallery-caption {
+                opacity: 1;
+                font-size: 0.8rem;
+                padding: 5px 8px;
+            }
         }
-        
     </style>
 </head>
 
@@ -478,7 +512,7 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
                             </div>
                         </section>
                     </div>
-                    
+
                     <!-- Estatísticas -->
                     <div class="col-md-4">
                         <div class="row">
@@ -524,9 +558,9 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
                 <section class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h2 class="m-0 border-0">Lista de Pagamentos - <?php
-                                                $months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-                                                echo $months[date('n') - 1] . ' ' . date('Y');
-                                                ?></h2>
+                                                                        $months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+                                                                        echo $months[date('n') - 1] . ' ' . date('Y');
+                                                                        ?></h2>
                         <?php if ($isAdmin): ?>
                             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addPlayerModal">
                                 <i class="fas fa-plus me-1"></i> Adicionar Jogador
@@ -732,6 +766,7 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
                             <div class="mb-3">
                                 <label for="photoFile" class="form-label">Selecione a foto</label>
                                 <input type="file" class="form-control" id="photoFile" name="photo" accept="image/*" required>
+                                <div class="form-text">Tamanho máximo: 5MB. Formatos: JPG, PNG, GIF</div>
                             </div>
                             <div class="mb-3">
                                 <label for="photoCaption" class="form-label">Legenda</label>
@@ -749,6 +784,32 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
                         </button>
                         <button type="button" class="btn btn-primary" id="savePhotoUpload">
                             <i class="fas fa-upload me-1"></i> Enviar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Confirmação para Excluir Foto -->
+        <div class="modal fade" id="deletePhotoModal" tabindex="-1" aria-labelledby="deletePhotoModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="deletePhotoModalLabel">
+                            <i class="fas fa-trash-alt me-2"></i> Excluir Foto
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Tem certeza que deseja excluir esta foto? Esta ação não pode ser desfeita.</p>
+                        <input type="hidden" id="deletePhotoId">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="fas fa-times me-1"></i> Cancelar
+                        </button>
+                        <button type="button" class="btn btn-danger" id="confirmDeletePhoto">
+                            <i class="fas fa-trash-alt me-1"></i> Sim, Excluir
                         </button>
                     </div>
                 </div>
@@ -803,7 +864,7 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
                 </div>
             </div>
         </div>
-        
+
         <!-- Modal de Confirmação de Reset Mensal -->
         <div class="modal fade" id="resetMonthModal" tabindex="-1" aria-labelledby="resetMonthModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -870,19 +931,22 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
     <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
     <script>
+        // Verificar se o usuário é admin para adicionar variável JS
+        const isAdmin = <?php echo $isAdmin ? 'true' : 'false'; ?>;
+
         // Função para alternar o modo escuro
         function toggleDarkMode() {
             const html = document.documentElement;
             const isDarkMode = html.classList.toggle('dark-mode');
-            
+
             // Alterar o ícone do botão
             const darkModeToggle = document.getElementById('darkModeToggle');
             if (darkModeToggle) {
-                darkModeToggle.innerHTML = isDarkMode 
-                    ? '<i class="fas fa-sun"></i>' 
-                    : '<i class="fas fa-moon"></i>';
+                darkModeToggle.innerHTML = isDarkMode ?
+                    '<i class="fas fa-sun"></i>' :
+                    '<i class="fas fa-moon"></i>';
             }
-            
+
             // Salvar a preferência do usuário
             document.cookie = `darkMode=${isDarkMode}; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/`;
         }
@@ -891,23 +955,23 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
         function getNextWednesday() {
             const today = new Date();
             const dayOfWeek = today.getDay(); // 0 = Domingo, 1 = Segunda, ..., 3 = Quarta
-            
+
             // Calcular dias até a próxima quarta
             let daysUntilWednesday = (3 - dayOfWeek + 7) % 7;
-            
+
             // Se hoje é quarta-feira (dayOfWeek === 3) e ainda não passou das 22h, a próxima é hoje
             if (dayOfWeek === 3 && today.getHours() < 22) {
                 daysUntilWednesday = 0;
             }
-            
+
             const nextWednesday = new Date(today);
             nextWednesday.setDate(today.getDate() + daysUntilWednesday);
-            
+
             const months = [
                 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
                 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
             ];
-            
+
             return `${nextWednesday.getDate()} de ${months[nextWednesday.getMonth()]} de ${nextWednesday.getFullYear()}`;
         }
 
@@ -928,17 +992,17 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
                 })
                 .then(data => {
                     if (data.success === false) throw new Error(data.error);
-                    
+
                     // Definir valores padrão caso não venham da API
                     const nextWednesday = getNextWednesday();
                     const defaultLocation = 'Arena Bom de Bola';
                     const defaultTime = '22:00';
-                    
+
                     // Atualizar elementos com os dados do jogo
                     document.getElementById('gameLocation').textContent = data.location || defaultLocation;
                     document.getElementById('gameDate').textContent = data.game_date || nextWednesday;
                     document.getElementById('gameTime').textContent = data.game_time || defaultTime;
-                    
+
                     // Também atualizar os campos do formulário, se existirem
                     if (document.getElementById('locationInput')) {
                         document.getElementById('locationInput').value = data.location || defaultLocation;
@@ -948,7 +1012,7 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
                 })
                 .catch(error => {
                     console.error('Erro ao carregar game info:', error);
-                    
+
                     // Em caso de erro, usar valores padrão
                     const nextWednesday = getNextWednesday();
                     document.getElementById('gameLocation').textContent = 'Arena Bom de Bola';
@@ -966,24 +1030,24 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
                 })
                 .then(data => {
                     if (data.success === false) throw new Error(data.error);
-                    
+
                     // Atualizar os status de pagamento na tabela
                     document.querySelectorAll('#paymentTable tr').forEach(row => {
                         const playerCell = row.querySelector('td:first-child');
                         if (!playerCell) return;
-                        
+
                         const player = playerCell.textContent.trim();
                         const statusCell = row.querySelector('td:nth-child(3)');
-                        
+
                         if (statusCell && data.data[player]) {
                             const statusText = data.data[player];
-                            
+
                             // Atualizar o badge de status
                             const statusBadge = statusCell.querySelector('.status-badge');
                             if (statusBadge) {
                                 statusBadge.textContent = statusText;
                                 statusBadge.className = 'status-badge';
-                                
+
                                 if (statusText === 'OK') {
                                     statusBadge.classList.add('status-ok');
                                     statusBadge.innerHTML = '<i class="fas fa-check-circle me-1"></i> OK';
@@ -997,7 +1061,7 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
                             }
                         }
                     });
-                    
+
                     loadPlayers();
                     updateStatistics(); // Atualizar estatísticas após carregar pagamentos
                 })
@@ -1009,9 +1073,9 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
             const playersData = Array.from(document.querySelectorAll('#paymentTable tr')).map(row => {
                 const cells = row.querySelectorAll('td');
                 if (cells.length < 3) return null;
-                
+
                 const name = cells[0].textContent.trim();
-                
+
                 // Obter tipo do jogador (Goleiro, Sim, Não)
                 let type = 'Não';
                 const badgeEl = cells[1].querySelector('.badge');
@@ -1020,7 +1084,7 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
                     if (badgeText.includes('Goleiro')) type = 'Goleiro';
                     else if (badgeText.includes('Sim')) type = 'Sim';
                 }
-                
+
                 // Obter status do pagamento
                 let status = 'Pendente';
                 const statusEl = cells[2].querySelector('.status-badge');
@@ -1028,27 +1092,36 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
                     const statusText = statusEl.textContent.trim();
                     status = statusText;
                 }
-                
-                return { name, type, status };
+
+                return {
+                    name,
+                    type,
+                    status
+                };
             }).filter(Boolean); // Remover nulos
-            
+
             // Organizar jogadores por tipo
             const goalkeepers = playersData.filter(p => p.type === 'Goleiro');
             const monthlyPlayers = playersData.filter(p => p.type === 'Sim');
             const nonMonthlyPlayers = playersData.filter(p => p.type === 'Não');
-            
+
             // Ordenar jogadores: Goleiros -> Mensalistas -> Não Mensalistas
             const sortedPlayers = [...goalkeepers, ...monthlyPlayers, ...nonMonthlyPlayers];
-            
+
             // Dividir em 4 colunas
             const playersPerColumn = Math.ceil(sortedPlayers.length / 4);
-            const columns = [[], [], [], []];
-            
+            const columns = [
+                [],
+                [],
+                [],
+                []
+            ];
+
             sortedPlayers.forEach((player, index) => {
                 const columnIndex = Math.floor(index / playersPerColumn);
                 if (columnIndex < 4) columns[columnIndex].push(player);
             });
-            
+
             // Gerar HTML para cada coluna
             const playersList = document.getElementById('playersList');
             playersList.innerHTML = columns.map(column => `
@@ -1071,24 +1144,24 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
         // Função para atualizar estatísticas
         function updateStatistics() {
             const rows = document.querySelectorAll('#paymentTable tr');
-            
+
             let totalPlayers = 0;
             let paidPlayers = 0;
             let goalkeepers = 0;
             let monthlyPlayers = 0;
-            
+
             rows.forEach(row => {
                 const cells = row.querySelectorAll('td');
                 if (cells.length < 3) return; // Ignorar cabeçalhos ou linhas incompletas
-                
+
                 totalPlayers++;
-                
+
                 // Verificar status de pagamento
                 const statusBadge = cells[2].querySelector('.status-badge');
                 if (statusBadge && statusBadge.textContent.trim().includes('OK')) {
                     paidPlayers++;
                 }
-                
+
                 // Verificar tipo de jogador
                 const typeBadge = cells[1].querySelector('.badge');
                 if (typeBadge) {
@@ -1100,10 +1173,10 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
                     }
                 }
             });
-            
+
             // Calcular porcentagem de pagamento
             const paymentPercentage = totalPlayers > 0 ? Math.round((paidPlayers / totalPlayers) * 100) : 0;
-            
+
             // Atualizar exibição das estatísticas
             document.getElementById('total-players').textContent = totalPlayers;
             document.getElementById('payment-percentage').textContent = paymentPercentage + '%';
@@ -1111,7 +1184,7 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
             document.getElementById('total-monthly').textContent = monthlyPlayers;
         }
 
-        // Função para carregar galeria de fotos
+        // Função para carregar galeria de fotos com datas corrigidas
         function loadGallery() {
             fetch('get_gallery.php')
                 .then(response => {
@@ -1120,36 +1193,43 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
                 })
                 .then(data => {
                     const galleryContent = document.getElementById('galleryContent');
-                    
+
                     if (!data.success || !data.photos || data.photos.length === 0) {
                         galleryContent.innerHTML = `
-                            <div class="col-12 text-center py-5">
-                                <i class="fas fa-images fa-3x mb-3 text-muted"></i>
-                                <h5>Nenhuma foto disponível</h5>
-                                <p class="text-muted">As fotos dos jogos aparecerão aqui.</p>
-                            </div>
-                        `;
+                    <div class="col-12 text-center py-5">
+                        <i class="fas fa-images fa-3x mb-3 text-muted"></i>
+                        <h5>Nenhuma foto disponível</h5>
+                        <p class="text-muted">As fotos dos jogos aparecerão aqui.</p>
+                    </div>
+                `;
                         return;
                     }
-                    
-                    // Ordenar fotos por data (mais recentes primeiro)
-                    const sortedPhotos = data.photos.sort((a, b) => new Date(b.date) - new Date(a.date));
-                    
+
                     // Gerar HTML para a galeria
-                    galleryContent.innerHTML = sortedPhotos.map(photo => `
-                        <div class="col-md-4 col-sm-6 mb-4">
-                            <div class="gallery-item" data-src="uploads/gallery/${photo.filename}">
-                                <img src="uploads/gallery/${photo.filename}" alt="${photo.caption || 'Destreinados FC'}" loading="lazy">
-                                <div class="gallery-caption">
-                                    ${photo.caption || ''} 
-                                    <small class="d-block">${new Date(photo.date).toLocaleDateString()}</small>
-                                </div>
-                            </div>
+                    galleryContent.innerHTML = data.photos.map(photo => `
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="gallery-item position-relative" data-src="uploads/gallery/${photo.filename}">
+                        <img src="uploads/gallery/${photo.filename}" alt="${photo.caption || 'Destreinados FC'}" loading="lazy">
+                        <div class="gallery-caption">
+                            ${photo.caption || ''} 
+                            <small class="d-block">${photo.formatted_date || formatDate(photo.date)}</small>
                         </div>
-                    `).join('');
-                    
+                        ${isAdmin ? `
+                        <button class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2 delete-photo" 
+                                data-photo-id="${photo.id}" type="button">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+
                     // Inicializar o lightbox
-                    lightGallery(document.getElementById('galleryContent'), {
+                    if (window.lgInstance) {
+                        window.lgInstance.destroy();
+                    }
+
+                    window.lgInstance = lightGallery(document.getElementById('galleryContent'), {
                         selector: '.gallery-item',
                         plugins: [lgZoom, lgThumbnail],
                         speed: 500,
@@ -1157,18 +1237,75 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
                         counter: true,
                         slideShowAutoplay: true
                     });
+
+                    // Adicionar eventos aos botões de exclusão
+                    if (isAdmin) {
+                        document.querySelectorAll('.delete-photo').forEach(button => {
+                            button.addEventListener('click', function(e) {
+                                e.stopPropagation(); // Impedir que o lightbox abra
+                                const photoId = this.getAttribute('data-photo-id');
+                                document.getElementById('deletePhotoId').value = photoId;
+                                const deleteModal = new bootstrap.Modal(document.getElementById('deletePhotoModal'));
+                                deleteModal.show();
+                            });
+                        });
+                    }
                 })
                 .catch(error => {
                     console.error('Erro ao carregar galeria:', error);
                     const galleryContent = document.getElementById('galleryContent');
                     galleryContent.innerHTML = `
-                        <div class="col-12 text-center py-5">
-                            <i class="fas fa-exclamation-circle fa-3x mb-3 text-danger"></i>
-                            <h5>Erro ao carregar galeria</h5>
-                            <p class="text-muted">Ocorreu um erro ao carregar as fotos. Por favor, tente novamente mais tarde.</p>
-                        </div>
-                    `;
+                <div class="col-12 text-center py-5">
+                    <i class="fas fa-exclamation-circle fa-3x mb-3 text-danger"></i>
+                    <h5>Erro ao carregar galeria</h5>
+                    <p class="text-muted">Ocorreu um erro ao carregar as fotos. Por favor, tente novamente mais tarde.</p>
+                </div>
+            `;
                 });
+        }
+
+        // Função auxiliar para formatar datas
+        function formatDate(dateString) {
+            if (!dateString) return '';
+
+            try {
+                // Verifica se já está no formato dd/mm/yyyy
+                if (/^\d{2}\/\d{2}\/\d{4}$/.test(dateString)) {
+                    return dateString;
+                }
+
+                // Se for no formato yyyy-mm-dd, converte para dd/mm/yyyy
+                if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+                    const parts = dateString.split('-');
+                    return `${parts[2]}/${parts[1]}/${parts[0]}`;
+                }
+
+                // Tenta formatar usando o objeto Date
+                const date = new Date(dateString);
+                if (isNaN(date.getTime())) return dateString;
+
+                // Retorna no formato brasileiro
+                return date.toLocaleDateString('pt-BR');
+            } catch (e) {
+                console.error("Erro ao formatar data:", e);
+                return dateString;
+            }
+        }
+        // Função para formatar data no padrão brasileiro
+        function formatDate(dateString) {
+            if (!dateString) return '';
+
+            const date = new Date(dateString);
+            // Verificar se a data é válida
+            if (isNaN(date.getTime())) return dateString;
+
+            // Formatar para DD/MM/YYYY
+            return date.toLocaleDateString('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                timeZone: 'America/Sao_Paulo' // Usar o fuso horário brasileiro
+            });
         }
 
         // Função para atualizar pagamento
@@ -1222,18 +1359,18 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
             if (darkModeToggle) {
                 darkModeToggle.addEventListener('click', toggleDarkMode);
             }
-            
+
             // Carregar informações do jogo
             loadGameInfo();
-            
+
             // Carregar status de pagamento
             loadPaymentStatus();
-            
+
             // Configurar evento para a aba da galeria
-            document.getElementById('gallery-tab').addEventListener('shown.bs.tab', function (e) {
+            document.getElementById('gallery-tab').addEventListener('shown.bs.tab', function(e) {
                 loadGallery();
             });
-            
+
             // Configurar evento para o formulário de login
             const loginForm = document.getElementById('loginForm');
             if (loginForm) {
@@ -1313,10 +1450,10 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
                                 document.getElementById('gameLocation').textContent = location;
                                 document.getElementById('gameDate').textContent = date;
                                 document.getElementById('gameTime').textContent = time;
-                                
+
                                 const modal = bootstrap.Modal.getInstance(document.getElementById('updateGameModal'));
                                 modal.hide();
-                                
+
                                 showToast('Jogo atualizado com sucesso!');
                             } else {
                                 alert('Erro ao atualizar jogo: ' + (data.error || 'Desconhecido'));
@@ -1407,46 +1544,112 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
                 });
             }
 
-            // Configurar evento para upload de foto
+            // Configurar evento para upload de foto com melhor tratamento de erros
             const savePhotoUploadBtn = document.getElementById('savePhotoUpload');
             if (savePhotoUploadBtn) {
                 savePhotoUploadBtn.addEventListener('click', function() {
                     const photoFile = document.getElementById('photoFile').files[0];
                     const photoCaption = document.getElementById('photoCaption').value;
                     const photoDate = document.getElementById('photoDate').value;
-                    
+
                     if (!photoFile) {
                         alert('Selecione uma foto para upload!');
                         return;
                     }
-                    
+
+                    // Mostrar mensagem de carregamento
+                    savePhotoUploadBtn.disabled = true;
+                    savePhotoUploadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+
                     const formData = new FormData();
                     formData.append('photo', photoFile);
                     formData.append('caption', photoCaption);
                     formData.append('date', photoDate);
-                    
+
                     fetch('upload_photo.php', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            const modal = bootstrap.Modal.getInstance(document.getElementById('uploadPhotoModal'));
-                            modal.hide();
-                            document.getElementById('uploadPhotoForm').reset();
-                            showToast('Foto enviada com sucesso!');
-                            
-                            // Recarregar a galeria se a aba estiver ativa
-                            const galleryTab = document.querySelector('#gallery-tab.active');
-                            if (galleryTab) {
-                                loadGallery();
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => {
+                            console.log('Resposta bruta:', response);
+                            return response.text(); // Obter texto primeiro para debugging
+                        })
+                        .then(text => {
+                            console.log('Texto de resposta:', text);
+                            // Tentar converter para JSON
+                            try {
+                                return JSON.parse(text);
+                            } catch (e) {
+                                console.error('Erro ao converter resposta para JSON:', e);
+                                throw new Error('Resposta inválida do servidor');
                             }
-                        } else {
-                            alert('Erro ao enviar foto: ' + (data.error || 'Desconhecido'));
-                        }
-                    })
-                    .catch(error => console.error('Erro ao enviar foto:', error));
+                        })
+                        .then(data => {
+                            savePhotoUploadBtn.disabled = false;
+                            savePhotoUploadBtn.innerHTML = '<i class="fas fa-upload me-1"></i> Enviar';
+
+                            if (data.success) {
+                                const modal = bootstrap.Modal.getInstance(document.getElementById('uploadPhotoModal'));
+                                modal.hide();
+                                document.getElementById('uploadPhotoForm').reset();
+                                showToast('Foto enviada com sucesso!');
+
+                                // Recarregar a galeria se a aba estiver ativa
+                                const galleryTab = document.querySelector('#gallery-tab.active');
+                                if (galleryTab) {
+                                    loadGallery();
+                                }
+                            } else {
+                                alert('Erro ao enviar foto: ' + (data.error || 'Desconhecido'));
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Erro completo:', error);
+                            savePhotoUploadBtn.disabled = false;
+                            savePhotoUploadBtn.innerHTML = '<i class="fas fa-upload me-1"></i> Enviar';
+                            alert('Erro ao enviar foto: ' + error.message);
+                        });
+                });
+            }
+
+            // Configurar evento para excluir foto
+            const confirmDeletePhotoBtn = document.getElementById('confirmDeletePhoto');
+            if (confirmDeletePhotoBtn) {
+                confirmDeletePhotoBtn.addEventListener('click', function() {
+                    const photoId = document.getElementById('deletePhotoId').value;
+                    if (!photoId) return;
+
+                    confirmDeletePhotoBtn.disabled = true;
+                    confirmDeletePhotoBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Excluindo...';
+
+                    fetch('delete_photo.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: `photo_id=${encodeURIComponent(photoId)}`
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            confirmDeletePhotoBtn.disabled = false;
+                            confirmDeletePhotoBtn.innerHTML = '<i class="fas fa-trash-alt me-1"></i> Sim, Excluir';
+
+                            const modal = bootstrap.Modal.getInstance(document.getElementById('deletePhotoModal'));
+                            modal.hide();
+
+                            if (data.success) {
+                                loadGallery(); // Recarregar a galeria
+                                showToast('Foto excluída com sucesso!');
+                            } else {
+                                alert('Erro ao excluir foto: ' + (data.error || 'Desconhecido'));
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Erro ao excluir foto:', error);
+                            confirmDeletePhotoBtn.disabled = false;
+                            confirmDeletePhotoBtn.innerHTML = '<i class="fas fa-trash-alt me-1"></i> Sim, Excluir';
+                            alert('Erro ao excluir foto: ' + error.message);
+                        });
                 });
             }
 
