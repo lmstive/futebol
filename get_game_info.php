@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 require_once 'config.php';
 
 try {
-    $stmt = $pdo->query("SELECT location, game_date, game_time FROM games WHERE id = 1");
+    $stmt = $pdo->query("SELECT location, game_date, game_time FROM games WHERE id = 2");
     $game = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($game) {
         echo json_encode(['success' => true, 'location' => $game['location'], 'game_date' => $game['game_date'], 'game_time' => $game['game_time']]);
