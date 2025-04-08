@@ -1,0 +1,563 @@
+/* style.css */
+:root {
+    --primary-color: #27ae60;
+    --secondary-color: #2c3e50;
+    --accent-color: #3498db;
+    --light-color: #ecf0f1;
+    --dark-color: #1a252f;
+    --text-color: #333;
+    --bg-color: #f5f5f5;
+    --card-bg: #fff;
+    --header-bg: var(--secondary-color);
+    --footer-bg: var(--secondary-color);
+    --bs-primary-rgb: 39, 174, 96; /* Para compatibilidade com componentes Bootstrap */
+    --bs-secondary-rgb: 44, 62, 80;
+}
+
+.dark-mode {
+    --text-color: #f0f0f0;
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --header-bg: #0f172a;
+    --footer-bg: #0f172a;
+    --primary-color: #4ade80;
+    --secondary-color: #334155;
+    --accent-color: #60a5fa;
+    --bs-primary-rgb: 74, 222, 128;
+    --bs-secondary-rgb: 51, 65, 85;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* --- Header --- */
+header {
+    background-color: var(--header-bg);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+}
+
+.logo {
+    max-height: 60px;
+    margin-right: 15px;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.dark-mode-toggle {
+    cursor: pointer;
+    font-size: 1.5rem;
+    /* margin-right: 15px; */ /* Removido, usar me-3 do Bootstrap */
+    color: white;
+    transition: color 0.3s;
+}
+
+.dark-mode-toggle:hover {
+    color: var(--primary-color);
+}
+
+/* Responsividade do Login no Header */
+@media (max-width: 991px) { /* Ajustado para lg breakpoint, pode ser md (768px) se preferir */
+    .login-form-header {
+        display: none !important; /* Esconde o form em telas menores que lg */
+    }
+    .mobile-login-button {
+        display: inline-block !important; /* Mostra o botão mobile */
+    }
+}
+/* Esconder o botão mobile em telas grandes */
+.mobile-login-button {
+     display: none !important;
+}
+
+
+/* --- Títulos e Geral --- */
+h2 {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem; /* Espaçamento padrão abaixo do H2 */
+}
+
+/* --- Cards --- */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.3s;
+    margin-bottom: 20px; /* Espaçamento padrão abaixo dos cards */
+    background-color: var(--card-bg);
+    border: none; /* Remover borda padrão do Bootstrap */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+.dark-mode .card:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+.card-header {
+    background-color: var(--secondary-color);
+    color: white;
+    border-radius: 10px 10px 0 0 !important;
+    border-bottom: none;
+}
+
+/* Card de Informações do Jogo */
+.game-info-card {
+    border-left: 5px solid var(--primary-color);
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    /* margin-bottom: 30px; */ /* Usar mb-4 ou mb-5 na row pai */
+}
+.game-info-card h2 {
+    border-bottom: none; /* Remover borda dupla no título */
+    margin-bottom: 0.5rem; /* Ajustar margem do título */
+}
+
+/* Cards de Estatísticas */
+.stats-card {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--card-bg);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Adicionado para hover */
+}
+.stats-card:hover {
+    transform: translateY(-3px); /* Leve levantada */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* Sombra mais pronunciada */
+}
+.dark-mode .stats-card:hover {
+     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Sombra para dark mode */
+}
+
+.stats-value {
+    font-size: 2.2rem; /* Aumentado */
+    font-weight: bold;
+    color: var(--primary-color);
+    margin: 5px 0 10px 0; /* Ajustado */
+}
+
+.stats-label {
+    font-size: 0.9rem; /* Levemente reduzido */
+    color: var(--text-color);
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+.stats-icon {
+    font-size: 2.2rem; /* Aumentado */
+    color: var(--accent-color);
+    margin-bottom: 10px;
+}
+
+/* --- Seção Lista de Jogadores (Colunas) --- */
+.player-list-container {
+    /* background-color: var(--card-bg); */ /* Remover fundo? Ou manter? */
+    /* border-radius: 10px; */
+    /* padding: 20px; */
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); */
+    margin-bottom: 30px;
+}
+.player-list-container h2 {
+    margin-bottom: 1.5rem;
+}
+/* Estilo para itens da lista de jogadores (se mantida) */
+.player-list-container .list-group-item {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid rgba(0, 0, 0, 0.05); /* Borda sutil */
+    border-left: 4px solid transparent;
+    transition: all 0.2s ease, background-color 0.3s;
+    padding: 0.75rem 1rem; /* Ajustar padding */
+}
+.dark-mode .player-list-container .list-group-item {
+     border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.player-list-container .list-group-item:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+    border-left-color: var(--primary-color);
+}
+.dark-mode .player-list-container .list-group-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+.player-list-container .list-group {
+    border-radius: 8px; /* Arredondar a lista toda */
+    overflow: hidden; /* Para o radius funcionar */
+}
+
+/* Status na lista de jogadores */
+.player-list-container .player-paid { color: var(--primary-color); font-weight: bold; }
+.player-list-container .player-pending { color: #e74c3c; }
+.player-list-container .player-exempt { color: var(--accent-color); font-weight: bold; }
+
+
+/* --- Tabela de Pagamentos --- */
+.table {
+    border-radius: 10px;
+    overflow: hidden; /* Garante que o radius funcione */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    color: var(--text-color);
+    margin-bottom: 0; /* Remover margem padrão da tabela se dentro de card-body */
+}
+
+.table thead th {
+    background-color: var(--secondary-color);
+    color: white;
+    border-bottom: none;
+    white-space: nowrap; /* Evitar quebra de linha nos cabeçalhos */
+}
+
+.table tbody td {
+    background-color: var(--card-bg);
+    vertical-align: middle; /* Alinhar conteúdo verticalmente */
+}
+
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.dark-mode .table-striped>tbody>tr:nth-of-type(odd)>* {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Garantir que o texto da tabela seja legível no modo escuro */
+.dark-mode .table {
+    color: var(--text-color); /* Já definido como #f0f0f0 no :root para dark-mode */
+}
+
+.dark-mode .table tbody td {
+    background-color: var(--card-bg); /* Usa a cor de fundo do card no modo escuro */
+    color: var(--text-color); /* Garantir que o texto da tabela seja visível */
+}
+
+/* Melhorar contraste nas linhas alternadas no modo escuro */
+.dark-mode .table-striped>tbody>tr:nth-of-type(odd)>* {
+    background-color: rgba(255, 255, 255, 0.05); /* Um pouco mais visível */
+    color: var(--text-color);
+}
+
+.dark-mode .table-striped>tbody>tr:nth-of-type(even)>* {
+    background-color: rgba(0, 0, 0, 0.2); /* Contraste para linhas pares */
+    color: var(--text-color);
+}
+
+/* Garantir que nomes dos jogadores na lista sejam legíveis no modo escuro */
+.dark-mode .list-group-item {
+    color: var(--text-color);
+}
+
+/* Garantir que o texto da tabela seja legível no modo escuro */
+.dark-mode .table {
+    color: var(--text-color); /* Já definido como #f0f0f0 no :root para dark-mode */
+}
+
+.dark-mode .table tbody td {
+    background-color: var(--card-bg); /* Usa a cor de fundo do card no modo escuro */
+}
+
+/* Melhorar contraste nas linhas alternadas no modo escuro */
+.dark-mode .table-striped>tbody>tr:nth-of-type(odd)>* {
+    background-color: rgba(255, 255, 255, 0.05); /* Um pouco mais visível */
+}
+
+.dark-mode .table-striped>tbody>tr:nth-of-type(even)>* {
+    background-color: rgba(0, 0, 0, 0.2); /* Contraste para linhas pares */
+}
+
+/* Badges (Tipo e Status) */
+.badge {
+    padding: 0.4em 0.7em; /* Ajustado */
+    font-weight: 500;
+    border-radius: 20px;
+    font-size: 0.8rem; /* Ajustado */
+    vertical-align: middle;
+}
+/* Cores específicas dos badges (já definidas no root, mas podemos reforçar) */
+.badge.bg-primary { background-color: var(--accent-color) !important; } /* Goleiro */
+.badge.bg-success { background-color: var(--primary-color) !important; } /* Mensalista Sim */
+.badge.bg-secondary { background-color: var(--secondary-color) !important; opacity: 0.8; } /* Mensalista Não */
+
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    display: inline-flex; /* Para alinhar ícone e texto */
+    align-items: center;
+    gap: 0.3em; /* Espaço entre ícone e texto */
+}
+.status-ok { background-color: var(--primary-color); color: white; }
+.status-pendente { background-color: #e74c3c; color: white; }
+.status-isento { background-color: var(--accent-color); color: white; }
+
+/* Botões de Ação na Tabela */
+#paymentTable td:last-child {
+    white-space: nowrap; /* Evitar quebra de linha nos botões */
+}
+#paymentTable .btn {
+    margin-right: 5px; /* Espaço entre botões */
+}
+#paymentTable .btn:last-child {
+    margin-right: 0;
+}
+
+/* --- Abas (Tabs) --- */
+.nav-tabs {
+    border-bottom-color: var(--secondary-color);
+    opacity: 0.8;
+}
+.nav-tabs .nav-link {
+    color: var(--text-color);
+    border-radius: 5px 5px 0 0;
+    border-color: transparent;
+    border-bottom-color: var(--secondary-color);
+}
+.nav-tabs .nav-link:hover,
+.nav-tabs .nav-link:focus {
+    border-color: transparent;
+    border-bottom-color: var(--primary-color);
+    isolation: isolate;
+    opacity: 1;
+}
+.nav-tabs .nav-link.active {
+    background-color: var(--card-bg);
+    color: var(--primary-color);
+    border-color: var(--secondary-color);
+    border-bottom-color: var(--card-bg); /* Esconde a borda inferior da tab ativa */
+    opacity: 1;
+    font-weight: 500;
+}
+.dark-mode .nav-tabs .nav-link.active {
+     border-bottom-color: var(--card-bg);
+}
+
+/* --- Modals --- */
+.modal-content {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-radius: 10px;
+    border: none;
+}
+.modal-header {
+    background-color: var(--secondary-color);
+    color: white;
+    border-radius: 10px 10px 0 0;
+    border-bottom: none;
+}
+.modal-header .btn-close {
+    filter: invert(1) brightness(200%);
+}
+.modal-footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+.dark-mode .modal-footer {
+     border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- Formulários --- */
+.form-control,
+.form-select {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+.dark-mode .form-control,
+.dark-mode .form-select {
+    border-color: rgba(255, 255, 255, 0.1);
+    background-color: #2a2a2a; /* Fundo um pouco diferente no dark mode */
+}
+.form-control:focus,
+.form-select:focus {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+}
+.dark-mode .form-control:focus,
+.dark-mode .form-select:focus {
+     background-color: #2a2a2a;
+}
+
+.input-group-text {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+}
+
+/* --- Toast --- */
+.toast {
+    background-color: var(--secondary-color);
+    color: white;
+    border-radius: 8px;
+}
+.toast-header {
+    background-color: var(--primary-color);
+    color: white;
+    border-bottom: none;
+}
+.toast-header .btn-close {
+     filter: invert(1) brightness(200%);
+}
+
+/* --- Galeria --- */
+.gallery-container {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+.gallery-container h2 {
+    margin-bottom: 1.5rem;
+}
+
+.gallery-item {
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.07);
+}
+.gallery-item:hover {
+    transform: scale(1.03);
+     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.dark-mode .gallery-item:hover {
+     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block; /* Remover espaço extra abaixo da imagem */
+}
+
+.gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)); /* Gradiente suave */
+    color: white;
+    padding: 20px 12px 8px 12px; /* Mais padding no topo */
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.gallery-item:hover .gallery-caption {
+    opacity: 1;
+}
+
+/* Botão Excluir Foto */
+.delete-photo {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    opacity: 0; /* Escondido por padrão */
+    transition: opacity 0.3s ease;
+    z-index: 10;
+    background-color: rgba(220, 53, 69, 0.7); /* Vermelho translúcido */
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+.gallery-item:hover .delete-photo {
+    opacity: 1; /* Aparece no hover do item */
+}
+.delete-photo:hover {
+    background-color: rgba(220, 53, 69, 1); /* Vermelho sólido no hover do botão */
+    opacity: 1;
+}
+.delete-photo i {
+    font-size: 0.8rem;
+    color: white;
+}
+
+
+/* --- Footer --- */
+footer {
+    background-color: var(--footer-bg);
+    margin-top: 3rem;
+    transition: background-color 0.3s;
+    padding: 2rem 0; /* Aumentar padding */
+    font-size: 0.9rem;
+}
+footer h5 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+footer p {
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+}
+footer i {
+    color: var(--primary-color);
+    opacity: 1;
+}
+
+
+/* --- Responsividade Adicional --- */
+@media (max-width: 768px) {
+    .stats-card {
+        margin-bottom: 15px;
+    }
+    .gallery-item img {
+        height: 150px;
+    }
+    .gallery-caption {
+        opacity: 1; /* Sempre visível em mobile */
+        font-size: 0.8rem;
+        padding: 15px 8px 5px 8px;
+    }
+    .delete-photo {
+        opacity: 0.8; /* Sempre um pouco visível em mobile */
+    }
+    footer .text-md-end {
+        text-align: center !important; /* Centralizar no mobile */
+        margin-top: 1rem;
+    }
+     footer .text-md-start {
+        text-align: center !important; /* Centralizar no mobile */
+    }
+}
+
+@media (max-width: 576px) {
+    h1.h3 { /* Título do Header */
+        font-size: 1.2rem; /* Reduzir um pouco em telas bem pequenas */
+    }
+    .logo {
+        max-height: 50px;
+    }
+    #paymentTable .btn {
+        margin-bottom: 5px; /* Empilhar botões de ação */
+        margin-right: 0;
+        display: block; /* Ocupar largura total */
+        width: 100%;
+    }
+     #paymentTable td:last-child {
+        white-space: normal;
+    }
+}

@@ -4,11 +4,11 @@ $isAdmin = isset($_SESSION['admin']);
 require_once 'config.php';
 
 // Carregar os jogadores do banco com ordenação alfabética dentro de cada tipo
-$stmt = $pdo->query("SELECT player_name, type, status FROM payments ORDER BY 
-    CASE 
-        WHEN type = 'Goleiro' THEN 1 
-        WHEN type = 'Sim' THEN 2 
-        WHEN type = 'Não' THEN 3 
+$stmt = $pdo->query("SELECT player_name, type, status FROM payments ORDER BY
+    CASE
+        WHEN type = 'Goleiro' THEN 1
+        WHEN type = 'Sim' THEN 2
+        WHEN type = 'Não' THEN 3
     END, player_name ASC");
 $sortedPlayers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -28,414 +28,8 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lg-zoom.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lg-thumbnail.css">
-    <style>
-        :root {
-            --primary-color: #27ae60;
-            --secondary-color: #2c3e50;
-            --accent-color: #3498db;
-            --light-color: #ecf0f1;
-            --dark-color: #1a252f;
-            --text-color: #333;
-            --bg-color: #f5f5f5;
-            --card-bg: #fff;
-            --header-bg: var(--secondary-color);
-            --footer-bg: var(--secondary-color);
-        }
-
-        .dark-mode {
-            --text-color: #f0f0f0;
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --header-bg: #0f172a;
-            --footer-bg: #0f172a;
-            --primary-color: #4ade80;
-            --secondary-color: #334155;
-            --accent-color: #60a5fa;
-        }
-
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .player-paid {
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-
-        .player-pending {
-            color: #e74c3c;
-        }
-
-        .player-exempt {
-            color: var(--accent-color);
-            font-weight: bold;
-        }
-
-        .login-form {
-            max-width: 300px;
-        }
-
-        header {
-            background-color: var(--header-bg);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s;
-        }
-
-        .btn-success {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .btn-success:hover {
-            background-color: #219653;
-            border-color: #219653;
-        }
-
-        footer {
-            background-color: var(--footer-bg);
-            margin-top: 3rem;
-            transition: background-color 0.3s;
-        }
-
-        h2 {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .logo {
-            max-height: 60px;
-            margin-right: 15px;
-            transition: transform 0.3s ease;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        .card {
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s;
-            margin-bottom: 20px;
-            background-color: var(--card-bg);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-header {
-            background-color: var(--secondary-color);
-            color: white;
-            border-radius: 10px 10px 0 0 !important;
-        }
-
-        .list-group-item {
-            border-left: 4px solid transparent;
-            transition: all 0.2s ease, background-color 0.3s;
-            background-color: var(--card-bg);
-            color: var(--text-color);
-        }
-
-        .list-group-item:hover {
-            background-color: rgba(0, 0, 0, 0.05);
-            border-left-color: var(--primary-color);
-        }
-
-        .dark-mode .list-group-item:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        .table {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            color: var(--text-color);
-        }
-
-        .table thead th {
-            background-color: var(--secondary-color);
-            color: white;
-            border-bottom: none;
-        }
-
-        .table tbody td {
-            background-color: var(--card-bg);
-        }
-
-        .table-striped>tbody>tr:nth-of-type(odd)>* {
-            background-color: rgba(0, 0, 0, 0.02);
-        }
-
-        .dark-mode .table-striped>tbody>tr:nth-of-type(odd)>* {
-            background-color: rgba(255, 255, 255, 0.02);
-        }
-
-        .badge {
-            padding: 6px 10px;
-            font-weight: 500;
-            border-radius: 20px;
-        }
-
-        .badge-primary {
-            background-color: var(--accent-color);
-        }
-
-        .badge-success {
-            background-color: var(--primary-color);
-        }
-
-        .badge-danger {
-            background-color: #e74c3c;
-        }
-
-        .badge-info {
-            background-color: var(--secondary-color);
-        }
-
-        .modal-content {
-            background-color: var(--card-bg);
-            color: var(--text-color);
-        }
-
-        .modal-header {
-            background-color: var(--secondary-color);
-            color: white;
-        }
-
-        .btn-close {
-            filter: invert(1) brightness(200%);
-        }
-
-        .toast {
-            background-color: var(--secondary-color);
-            color: white;
-        }
-
-        .toast-header {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        .player-list-container {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            margin-bottom: 30px;
-        }
-
-        .game-info-card {
-            border-left: 5px solid var(--primary-color);
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            margin-bottom: 30px;
-        }
-
-        .stats-card {
-            text-align: center;
-            padding: 20px;
-            border-radius: 10px;
-            background-color: var(--card-bg);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            margin-bottom: 20px;
-        }
-
-        .stats-value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin: 10px 0;
-        }
-
-        .stats-label {
-            font-size: 1rem;
-            color: var(--text-color);
-            text-transform: uppercase;
-        }
-
-        .stats-icon {
-            font-size: 2rem;
-            color: var(--accent-color);
-            margin-bottom: 10px;
-        }
-
-        .status-badge {
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        .status-ok {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        .status-pendente {
-            background-color: #e74c3c;
-            color: white;
-        }
-
-        .status-isento {
-            background-color: var(--accent-color);
-            color: white;
-        }
-
-        .dark-mode-toggle {
-            cursor: pointer;
-            font-size: 1.5rem;
-            margin-right: 15px;
-            color: white;
-            transition: color 0.3s;
-        }
-
-        .dark-mode-toggle:hover {
-            color: var(--primary-color);
-        }
-
-        .form-control,
-        .form-select {
-            background-color: var(--card-bg);
-            color: var(--text-color);
-            border-color: rgba(0, 0, 0, 0.1);
-        }
-
-        .dark-mode .form-control,
-        .dark-mode .form-select {
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .form-control:focus,
-        .form-select:focus {
-            background-color: var(--card-bg);
-            color: var(--text-color);
-        }
-
-        .input-group-text {
-            background-color: var(--secondary-color);
-            color: white;
-            border-color: var(--secondary-color);
-        }
-
-        .nav-tabs .nav-link {
-            color: var(--text-color);
-        }
-
-        .nav-tabs .nav-link.active {
-            background-color: var(--card-bg);
-            color: var(--primary-color);
-            border-bottom-color: var(--primary-color);
-        }
-
-        /* Galeria de Fotos */
-        .gallery-container {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            margin-bottom: 30px;
-        }
-
-        .gallery-item {
-            margin-bottom: 20px;
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .gallery-item:hover {
-            transform: scale(1.03);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-
-        .gallery-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 8px 12px;
-            font-size: 0.9rem;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .gallery-item:hover .gallery-caption {
-            opacity: 1;
-        }
-
-        .gallery-upload-form {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        /* Estilos para o botão de excluir */
-        .delete-photo {
-            opacity: 0.7;
-            transition: opacity 0.3s;
-            z-index: 10;
-        }
-
-        .delete-photo:hover {
-            opacity: 1;
-        }
-
-        /* Adicionar efeito de hover vermelho para botão de exclusão */
-        .gallery-item .btn-danger {
-            background-color: rgba(220, 53, 69, 0.8);
-            border-color: transparent;
-        }
-
-        .gallery-item .btn-danger:hover {
-            background-color: rgba(220, 53, 69, 1);
-        }
-
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .login-form input {
-                margin-bottom: 5px;
-            }
-
-            .stats-card {
-                margin-bottom: 15px;
-            }
-
-            .gallery-item img {
-                height: 150px;
-            }
-
-            /* Para dispositivos móveis, sempre mostrar os botões */
-            .delete-photo {
-                opacity: 1;
-            }
-
-            .gallery-caption {
-                opacity: 1;
-                font-size: 0.8rem;
-                padding: 5px 8px;
-            }
-        }
-    </style>
+    <!-- Link para o arquivo CSS externo -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -931,6 +525,7 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
     <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
     <script>
+        // Todo o seu código JavaScript permanece aqui...
         // Verificar se o usuário é admin para adicionar variável JS
         const isAdmin = <?php echo $isAdmin ? 'true' : 'false'; ?>;
 
@@ -1129,7 +724,7 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
                     <ul class="list-group">
                         ${column.map(player => `
                             <li class="list-group-item">
-                                ${player.name} 
+                                ${player.name}
                                 <small class="text-muted">(${player.type})</small>
                                 <span class="${player.status === 'OK' ? 'player-paid' : player.status === 'Pendente' ? 'player-pending' : 'player-exempt'}">
                                     ${player.status}
@@ -1211,11 +806,11 @@ $darkMode = isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true';
                     <div class="gallery-item position-relative" data-src="uploads/gallery/${photo.filename}">
                         <img src="uploads/gallery/${photo.filename}" alt="${photo.caption || 'Destreinados FC'}" loading="lazy">
                         <div class="gallery-caption">
-                            ${photo.caption || ''} 
+                            ${photo.caption || ''}
                             <small class="d-block">${photo.formatted_date || formatDate(photo.date)}</small>
                         </div>
                         ${isAdmin ? `
-                        <button class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2 delete-photo" 
+                        <button class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2 delete-photo"
                                 data-photo-id="${photo.id}" type="button">
                             <i class="fas fa-trash-alt"></i>
                         </button>
